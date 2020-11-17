@@ -3,9 +3,19 @@
 ## Instructions
 Run 
 ```
-python cudapython.py
+python cudaminer.py
 ```
 
+### Requirements
+```
+python -m pip install requirements.txt
+```
+
+## CUDA
+The CUDA toolkit is required to compile the .cu and .cuh files.
+```
+nvcc -o cpen442hash main.cu -arch=sm_61
+```
 
 ## https://github.com/moffa13/SHA256CUDA
 
