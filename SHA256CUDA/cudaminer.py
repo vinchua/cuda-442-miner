@@ -41,13 +41,14 @@ class Tracker(object):
         hash = list[2]
 
         print(f'Coin_blob: {coin_blob}')
-        print(f'Hash: {hash}')
+        # print(f'Hash: {hash}')
 
         data = {}
         data['coin_blob'] = coin_blob
         data['id_of_miner'] = self.miner_id
-        data['hash_of_preceding_coin'] = self.last_coin
-        r = requests.post(CLAIM_COIN_URL, data=data)
+        data['hash_of_last_coin'] = self.last_coin
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(CLAIM_COIN_URL, data=json.dumps(data), headers=headers)
         response = r.json()
         print(response)
 
@@ -56,15 +57,18 @@ def main():
     # echo -n "supersecretcpen442publicid" | sha256sum
     obj = Tracker("534618e186cb7b73677a6b3571fe03c5ef2570d24691e7386ae6ddb62a167c7b")
 
+    # list = ["1234", "nothing", "534618e186cb7b73677a6b3571fe03c5ef2570d24691e7386ae6ddb62a167c7b"]
+    # obj.claim_coin(list)
+
     while True:
         list = []
         save_flag = False
 
         current_difficulty = obj.update_difficulty()
         current_coin = obj.update_last_coin()
-        if current_difficulty > 9:
-            print("Difficulty too high, sleeping for 3 minutes...")
-            time.sleep(180 - time.time() % 180)
+        if current_difficulty > 10:
+            print("Difficulty too high, sleeping for 5 minutes...")
+            time.sleep(300 - time.time() % 300)
             continue
 
         timer = time.perf_counter()
@@ -80,8 +84,9 @@ def main():
 
                 if time.perf_counter() - timer > 60:
                     timer = time.perf_counter()
-                    if obj.update_difficulty() != current_difficulty:
-                        print("Difficulty changed. Restarting.")
+                    if obj.update_last_coin() != current_coin:
+                        print("Coin changed. Restarting.")
+                        p.kill()
                         break;
                     
         save_flag = False
@@ -89,7 +94,6 @@ def main():
         check_last_coin = obj.update_last_coin()
         if current_difficulty == check_difficulty and current_coin == check_last_coin:
             obj.claim_coin(list)
-        # obj.claim_coin(list)
 
 
 if __name__ == "__main__":
