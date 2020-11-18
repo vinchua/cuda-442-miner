@@ -184,19 +184,26 @@ int main(int argc, char *argv[]) {
 
 	t_last_updated = std::chrono::high_resolution_clock::now();
 
-	//SHA256(“CPEN 442 Coin” + “2020” + hash_of_preceding_coin + coin_blob + id_of_miner)
+	//SHA256(ï¿½CPEN 442 Coinï¿½ + ï¿½2020ï¿½ + hash_of_preceding_coin + coin_blob + id_of_miner)
 	std::string prefix = "CPEN 442 Coin2020";
 
 	std::cout << "Nonce starts at 0.\n";
 
 	printf("Received %d args.\n", argc-1);
-	if (argc != 3) {
-		printf("Arguments required: last_coin and difficulty\n");
+	if (argc < 4) {
+		std::cout << "Arguments required: last_coin and difficulty" << std::endl;
 	}
 
 	std::string previous_coin = argv[1];
-	difficulty = std::stoi(argv[2]);
+	std::string suffix = argv[2];
+	difficulty = std::stoi(argv[3]);
 
+	if (argc == 5){
+		char* end;
+		user_nonce = std::strtoull(argv[4], &end, 10);
+		std::cout << "Starting with nonce " << user_nonce << std::endl;
+	}
+	
 	/*std::string previous_coin;
 	std::cout << "Previous coin : ";
 	std::cin >> previous_coin;
@@ -208,8 +215,8 @@ int main(int argc, char *argv[]) {
 
 	prefix += previous_coin;
 
-	// echo -n "supersecretcpen442publicid" | sha256sum
-	std::string suffix = "534618e186cb7b73677a6b3571fe03c5ef2570d24691e7386ae6ddb62a167c7b";
+	// echo -n "supersecretcpen442publicid2" | sha256sum
+	// std::string suffix = "e4930ade97a8d44e5dcec0055c0e2fb05e7527449971f1ecdd75cb62850af51c";
 
 	const size_t prefix_size = prefix.size();
 	const size_t suffix_size = suffix.size();

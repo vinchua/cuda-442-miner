@@ -59,6 +59,14 @@ def main():
 
     # list = ["1234", "nothing", "534618e186cb7b73677a6b3571fe03c5ef2570d24691e7386ae6ddb62a167c7b"]
     # obj.claim_coin(list)
+    
+    # std::string previous_coin = argv[1];
+	# std::string suffix = argv[2];
+	# difficulty = std::stoi(argv[3]);
+
+	# if (argc == 4){
+	# 	user_nonce = std::stoi(argv[4]);
+	# }
 
     while True:
         list = []
@@ -72,7 +80,7 @@ def main():
             continue
 
         timer = time.perf_counter()
-        with Popen(["442cointest.exe", obj.last_coin, str(current_difficulty)], stdout=PIPE, stdin=PIPE, stderr=STDOUT) as p:
+        with Popen(["442cointest.exe", obj.last_coin, obj.miner_id, str(current_difficulty), "1172802895872"], stdout=PIPE, stdin=PIPE, stderr=STDOUT) as p:
             for line in p.stdout:
                 line = line.decode('utf-8')
                 print(line, end='')
@@ -96,7 +104,8 @@ def main():
         save_flag = False
         check_difficulty = obj.update_difficulty()
         check_last_coin = obj.update_last_coin()
-        if current_difficulty == check_difficulty and current_coin == check_last_coin:
+        print(list)
+        if current_difficulty == check_difficulty and current_coin == check_last_coin and list:
             obj.claim_coin(list)
 
 
