@@ -88,6 +88,10 @@ def main():
                         print("Coin changed. Restarting.")
                         p.kill()
                         break;
+                    if obj.update_difficulty() != current_difficulty:
+                        print("Difficulty changed. Restarting.")
+                        p.kill()
+                        break;
                     
         save_flag = False
         check_difficulty = obj.update_difficulty()
