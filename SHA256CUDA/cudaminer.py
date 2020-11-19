@@ -54,17 +54,14 @@ class Tracker(object):
 
 
 def main():
-    # echo -n "supersecretcpen442publicid" | sha256sum
-    obj = Tracker("534618e186cb7b73677a6b3571fe03c5ef2570d24691e7386ae6ddb62a167c7b")
+    # echo -n "cudacloud442" | sha256sum
+    obj = Tracker("8a366f7c9c9ef851760f9838ac5b1b27fa9c4341620fad9ff1dfbf4f421fae91")
 
-    # list = ["1234", "nothing", "534618e186cb7b73677a6b3571fe03c5ef2570d24691e7386ae6ddb62a167c7b"]
-    # obj.claim_coin(list)
-    
     # std::string previous_coin = argv[1];
-	# std::string suffix = argv[2];
-	# difficulty = std::stoi(argv[3]);
+    # std::string suffix = argv[2];
+    # difficulty = std::stoi(argv[3]);
 
-	# if (argc == 4){
+    # if (argc == 4){
 	# 	user_nonce = std::stoi(argv[4]);
 	# }
 
@@ -74,13 +71,13 @@ def main():
 
         current_difficulty = obj.update_difficulty()
         current_coin = obj.update_last_coin()
-        if current_difficulty > 10:
-            print("Difficulty too high, sleeping for 5 minutes...")
-            time.sleep(300 - time.time() % 300)
-            continue
+        #if current_difficulty > 10:
+        #    print("Difficulty too high, sleeping for 5 minutes...")
+        #    time.sleep(300 - time.time() % 300)
+        #    continue
 
         timer = time.perf_counter()
-        with Popen(["442cointest.exe", obj.last_coin, obj.miner_id, str(current_difficulty), "1172802895872"], stdout=PIPE, stdin=PIPE, stderr=STDOUT) as p:
+        with Popen(["./miner", obj.last_coin, obj.miner_id, str(current_difficulty)], stdout=PIPE, stdin=PIPE, stderr=STDOUT) as p:
             for line in p.stdout:
                 line = line.decode('utf-8')
                 print(line, end='')

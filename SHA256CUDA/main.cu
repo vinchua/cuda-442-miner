@@ -248,7 +248,7 @@ int main(int argc, char *argv[]) {
 	std::cout << "Shared memory is " << dynamic_shared_size / 1024 << "KB" << std::endl;
 
 	while (!*g_found) {
-		sha256_kernel << < NUMBLOCKS, BLOCK_SIZE, dynamic_shared_size >> > (g_out, g_hash_out, g_found, g_nonce_out, d_prefix, prefix_size, d_suffix, suffix_size, difficulty, nonce);
+		sha256_kernel <<< NUMBLOCKS, BLOCK_SIZE, dynamic_shared_size >>> (g_out, g_hash_out, g_found, g_nonce_out, d_prefix, prefix_size, d_suffix, suffix_size, difficulty, nonce);
 
 		cudaError_t err = cudaDeviceSynchronize();
 		if (err != cudaSuccess) {
