@@ -71,13 +71,9 @@ def main():
 
         current_difficulty = obj.update_difficulty()
         current_coin = obj.update_last_coin()
-        #if current_difficulty > 10:
-        #    print("Difficulty too high, sleeping for 5 minutes...")
-        #    time.sleep(300 - time.time() % 300)
-        #    continue
 
         timer = time.perf_counter()
-        with Popen(["./miner", obj.last_coin, obj.miner_id, str(current_difficulty)], stdout=PIPE, stdin=PIPE, stderr=STDOUT) as p:
+        with Popen(["./miner", obj.last_coin, obj.miner_id, str(current_difficulty),"95600000000000"], stdout=PIPE, stdin=PIPE, stderr=STDOUT) as p:
             for line in p.stdout:
                 line = line.decode('utf-8')
                 print(line, end='')
@@ -87,7 +83,7 @@ def main():
                 if "-" in line:
                     save_flag = True
 
-                if time.perf_counter() - timer > 60:
+                if time.perf_counter() - timer > 10:
                     timer = time.perf_counter()
                     if obj.update_last_coin() != current_coin:
                         print("Coin changed. Restarting.")
