@@ -1,4 +1,5 @@
-# For cpen442 coin mining contest 2020
+# cuda-442-miner
+For cpen442 coin mining contest 2020.
 
 ## Instructions
 Run 
