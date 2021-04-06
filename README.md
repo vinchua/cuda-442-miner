@@ -1,5 +1,5 @@
 # cuda-442-miner
-For cpen442 coin mining contest 2020.
+For cpen442 coin mining contest 2020. Hash rate is very hardware dependent. Since it is using CUDA, Nvidia GPU is mandatory.
 
 ## Instructions
 Run 
