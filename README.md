@@ -1,4 +1,4 @@
-# SHA256CUDA
+# For cpen442 coin mining contest 2020
 
 ## Instructions
 Run 
@@ -17,7 +17,7 @@ The CUDA toolkit is required to compile the .cu and .cuh files.
 nvcc -o cpen442hash main.cu -arch=sm_61
 ```
 
-## https://github.com/moffa13/SHA256CUDA
+## Kernel adapted from https://github.com/moffa13/SHA256CUDA
 
 Because of std::cin ignoring spaces, including newlines, use getline(std::cin, in) instead.
 
